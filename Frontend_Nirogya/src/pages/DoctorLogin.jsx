@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const DoctorLogin = () => {
   const navigate = useNavigate();
@@ -39,7 +40,11 @@ const DoctorLogin = () => {
   };
 
   return (
+    <>
+     <Navbar />
+   
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+     
       <div className="bg-white p-8 rounded-lg shadow-2xl w-96">
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Welcome Back, Doctor!
@@ -92,6 +97,7 @@ const DoctorLogin = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

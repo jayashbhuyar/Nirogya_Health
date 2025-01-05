@@ -62,29 +62,17 @@ const signupDoctor = async (req, res) => {
 // Get all doctors with optional location sorting
 const getAllDoctors = async (req, res) => {
   try {
-    const { userLat, userLng } = req.query;
-    const doctors = await Doctor.find().select('-password');
-
-    if (userLat && userLng) {
-      // If user location is provided, calculate distances and sort
-      const doctorsWithDistance = doctors.map(doctor => {
-        const [docLat, docLng] = doctor.location.split(',').map(Number);
-        const distance = calculateDistance(
-          parseFloat(userLat), 
-          parseFloat(userLng), 
-          docLat, 
-          docLng
-        );
-        return { ...doctor.toObject(), distance };
-      });
-
-      doctorsWithDistance.sort((a, b) => a.distance - b.distance);
-      return res.status(200).json(doctorsWithDistance);
-    }
-
-    res.status(200).json(doctors);
+    const doctors = await Doctor.find({});
+    res.status(200).json({
+      success: true,
+      data: doctors,
+    });
   } catch (error) {
-    res.status(500).json({ message: 'Error fetching doctors', error: error.message });
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch doctors',
+      error: error.message,
+    });
   }
 };
 

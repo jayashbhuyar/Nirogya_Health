@@ -236,7 +236,7 @@ const LandingPage = () => {
                 >
                   Search by Disease
                 </button>
-                <button
+                {/* <button
                   className={`px-4 py-2 rounded-full ${
                     searchType === 'doctor' 
                       ? 'bg-blue-600 text-white' 
@@ -245,7 +245,7 @@ const LandingPage = () => {
                   onClick={() => setSearchType('doctor')}
                 >
                   Search by Doctor
-                </button>
+                </button> */}
               </div>
               
               <SearchSection />

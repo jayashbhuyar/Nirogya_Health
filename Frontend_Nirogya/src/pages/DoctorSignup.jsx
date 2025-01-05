@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 // import { navigate } from 'react-router-dom';
+import Navbar from './Navbar';
 
 const DoctorSignup = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +16,7 @@ const DoctorSignup = () => {
     email: '',
     password: '',
   });
-// const navigate = useNavigate();
+
   const specialties = [
     "Cardiology", "Dermatology", "Endocrinology", "Gastroenterology",
     "General Surgery", "Neurology", "Obstetrics & Gynecology", "Oncology",
@@ -24,7 +25,6 @@ const DoctorSignup = () => {
   ];
 
   const cities = ["Harbour Line", "Central Line", "Western Line"];
-
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
   const handleChange = (e) => {
@@ -57,206 +57,261 @@ const DoctorSignup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/doctors/signup', formData);
+      const response = await axios.post('http://localhost:8000/api/doctors/v2/signup', formData);
       alert('Signup successful!');
-      // navigate('/admin'); // Navigate to the admin page
+      navigate('/login');
     } catch (error) {
       console.error('Signup failed:', error.response?.data || error.message);
       alert('Signup failed. Please try again.');
     }
   };
-  
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg transform transition duration-500 hover:scale-105"
+    <>
+      <Navbar />
+      <div 
+        className="min-h-screen py-12 px-4 sm:px-6 lg:px-8 relative"
+        style={{
+          backgroundImage: 'url("https://img.freepik.com/free-vector/shiny-green-heartbeat-pulse-electrocardiogram-design-creative-background-health-medical-concept_1302-5649.jpg")',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+        }}
       >
-        <h2 className="text-3xl font-extrabold text-center mb-6 text-gradient bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-          Doctor Signup
-        </h2>
+        {/* Semi-transparent overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-purple-50/70 to-pink-50/70"></div>
 
-        {/* Name */}
-        <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          />
-        </div>
-
-        {/* Hospital Name */}
-        <div className="mb-4">
-          <label htmlFor="hospitalName" className="block text-gray-700 font-medium mb-2">Hospital Name</label>
-          <input
-            type="text"
-            id="hospitalName"
-            name="hospitalName"
-            value={formData.hospitalName}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          />
-        </div>
-
-        {/* Specialty */}
-        <div className="mb-4">
-          <label htmlFor="specialty" className="block text-gray-700 font-medium mb-2">Specialty</label>
-          <select
-            id="specialty"
-            name="specialty"
-            value={formData.specialty}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          >
-            <option value="">Select a specialty</option>
-            {specialties.map((specialty) => (
-              <option key={specialty} value={specialty}>{specialty}</option>
-            ))}
-          </select>
-        </div>
-
-        {/* City */}
-        <div className="mb-4">
-  <label htmlFor="city" className="block text-gray-700 font-medium mb-2">City</label>
-  <select
-    id="city"
-    name="city"
-    value={formData.city}
-    onChange={handleChange}
-    className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-    required
-  >
-    <option value="">Select a city</option>
-    {cities.map((city) => (
-      <option key={city} value={city}>{city}</option>
-    ))}
-  </select>
-</div>
-
-
-        {/* Location */}
-        <div className="mb-4">
-          <label htmlFor="location" className="block text-gray-700 font-medium mb-2">Location</label>
-          <input
-            type="text"
-            id="location"
-            name="location"
-            value={formData.location}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          />
-        </div>
-
-        {/* Days */}
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Available Days</label>
-          <div className="flex flex-wrap gap-2">
-            {daysOfWeek.map((day) => (
-              <label key={day} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  value={day}
-                  checked={formData.days.includes(day)}
-                  onChange={() => handleDaysChange(day)}
-                  className="h-4 w-4 text-purple-500"
-                />
-                <span>{day}</span>
-              </label>
-            ))}
+        
+        {/* Content container */}
+        <div className="max-w-4xl mx-auto relative z-10">
+          {/* Header Section */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-extrabold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              Join Our Medical Network
+            </h1>
+            <p className="mt-3 text-lg text-gray-600">
+              Empower your practice with our digital healthcare platform
+            </p>
           </div>
-        </div>
 
-        {/* Appointment Times */}
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium mb-2">Appointment Times</label>
-          {formData.appointmentTimes.map((slot, index) => (
-            <div key={index} className="flex gap-4 mb-2">
-              <input
-                type="time"
-                value={slot.startTime}
-                onChange={(e) => handleTimeSlotChange(index, 'startTime', e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                required
-              />
-              <input
-                type="time"
-                value={slot.endTime}
-                onChange={(e) => handleTimeSlotChange(index, 'endTime', e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-                required
-              />
+          {/* Main Form Card */}
+          <form onSubmit={handleSubmit} className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-8 space-y-6 transform transition-all duration-500 hover:shadow-2xl">
+            {/* Personal Information Section */}
+            <div className="space-y-6 border-b border-gray-200 pb-6">
+              <h2 className="text-2xl font-semibold text-gray-800 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Personal Information
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                  required
+                  minLength="6"
+                />
+              </div>
             </div>
-          ))}
-          <button
-            type="button"
-            onClick={addTimeSlot}
-            className="text-purple-500 hover:underline"
-          >
-            Add Time Slot
-          </button>
-        </div>
 
-        {/* Fees */}
-        <div className="mb-4">
-          <label htmlFor="fees" className="block text-gray-700 font-medium mb-2">Fees</label>
-          <input
-            type="number"
-            id="fees"
-            name="fees"
-            value={formData.fees}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-            min="0"
-          />
-        </div>
+            {/* Professional Information Section */}
+            <div className="space-y-6 border-b border-gray-200 pb-6">
+              <h2 className="text-2xl font-semibold text-gray-800 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Professional Details
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="hospitalName" className="block text-sm font-medium text-gray-700">Hospital Name</label>
+                  <input
+                    type="text"
+                    id="hospitalName"
+                    name="hospitalName"
+                    value={formData.hospitalName}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                  />
+                </div>
 
-        {/* Email */}
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-medium mb-2">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-          />
-        </div>
+                <div>
+                  <label htmlFor="specialty" className="block text-sm font-medium text-gray-700">Specialty</label>
+                  <select
+                    id="specialty"
+                    name="specialty"
+                    value={formData.specialty}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                  >
+                    <option value="">Select a specialty</option>
+                    {specialties.map((specialty) => (
+                      <option key={specialty} value={specialty}>{specialty}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
 
-        {/* Password */}
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 font-medium mb-2">Password</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
-            required
-            minLength="6"
-          />
-        </div>
+            {/* Location Section */}
+            <div className="space-y-6 border-b border-gray-200 pb-6">
+              <h2 className="text-2xl font-semibold text-gray-800 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Location & Fees
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="city" className="block text-sm font-medium text-gray-700">City</label>
+                  <select
+                    id="city"
+                    name="city"
+                    value={formData.city}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                  >
+                    <option value="">Select a city</option>
+                    {cities.map((city) => (
+                      <option key={city} value={city}>{city}</option>
+                    ))}
+                  </select>
+                </div>
 
-        <button
-          type="submit"
-          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 px-4 rounded-lg hover:shadow-lg transition-transform transform hover:scale-105"
-        >
-          Signup
-        </button>
-      </form>
-    </div>
+                <div>
+                  <label htmlFor="location" className="block text-sm font-medium text-gray-700">Specific Location</label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="fees" className="block text-sm font-medium text-gray-700">Consultation Fees (₹)</label>
+                  <input
+                    type="number"
+                    id="fees"
+                    name="fees"
+                    value={formData.fees}
+                    onChange={handleChange}
+                    className="mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                    required
+                    min="0"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Availability Section */}
+            <div className="space-y-6">
+              <h2 className="text-2xl font-semibold text-gray-800 bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+                Availability
+              </h2>
+              
+              <div className="space-y-4">
+                <label className="block text-sm font-medium text-gray-700">Available Days</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {daysOfWeek.map((day) => (
+                    <label key={day} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-purple-50 transition-colors cursor-pointer">
+                      <input
+                        type="checkbox"
+                        value={day}
+                        checked={formData.days.includes(day)}
+                        onChange={() => handleDaysChange(day)}
+                        className="h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded"
+                      />
+                      <span className="text-sm text-gray-700">{day}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-gray-700">Appointment Time Slots</label>
+                  {/* <button
+                    type="button"
+                    onClick={addTimeSlot}
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-purple-600 hover:text-purple-700"
+                  >
+                    + Add Time Slot
+                  </button> */}
+                </div>
+                <div className="space-y-3">
+                  {formData.appointmentTimes.map((slot, index) => (
+                    <div key={index} className="grid grid-cols-2 gap-4">
+                      <div>
+                        <input
+                          type="time"
+                          value={slot.startTime}
+                          onChange={(e) => handleTimeSlotChange(index, 'startTime', e.target.value)}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <input
+                          type="time"
+                          value={slot.endTime}
+                          onChange={(e) => handleTimeSlotChange(index, 'endTime', e.target.value)}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                          required
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-6">
+              <button
+                type="submit"
+                className="w-full flex justify-center py-4 px-4 border border-transparent rounded-lg shadow-sm text-lg font-medium text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transform transition-all hover:scale-105"
+              >
+                Complete Registration
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </>
   );
 };
 

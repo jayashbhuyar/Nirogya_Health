@@ -4,8 +4,8 @@ const { signupDoctor, getAllDoctors, getDoctorById, deleteDoctor, loginDoctor,ge
 const router = express.Router();
 
 // Routes
-router.post('/signup', signupDoctor); // Doctor signup
-router.get('/', getAllDoctors); // Get all doctors
+router.post('/v2/signup', signupDoctor); // Doctor signup
+router.get('/v1', getAllDoctors); // Get all doctors
 router.get('/:id', getDoctorById); // Get a doctor by ID
 router.delete('/:id', deleteDoctor); // Delete a doctor by ID
 router.post("/login", loginDoctor);
