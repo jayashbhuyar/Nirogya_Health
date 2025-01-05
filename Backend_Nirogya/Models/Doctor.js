@@ -41,7 +41,7 @@ const doctorSchema = new mongoose.Schema({
   city: {
     type: String,
     required: true,
-    enum: ["Mumbai", "Delhi", "Chennai", "Kolkata", "Bangalore", "Hyderabad"]
+    enum: ["Harbour Line", "Central Line", "Western Line"]
   },
   days: [{
     type: String,

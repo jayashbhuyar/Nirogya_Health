@@ -15,7 +15,7 @@ const LandingPage = () => {
   const [selectedCity, setSelectedCity] = useState('all');
 
   // Updated cities array
-  const cities = ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Lucknow"];
+  const cities = ["Harbour Line", "Central Line", "Western Line"];
   
   // Add 'All Cities' option to the beginning
   const allCities = ['all', ...cities];

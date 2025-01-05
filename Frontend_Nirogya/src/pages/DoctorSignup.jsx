@@ -23,7 +23,7 @@ const DoctorSignup = () => {
     "Pulmonology", "Radiology", "Urology"
   ];
 
-  const cities = ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune", "Ahmedabad", "Jaipur", "Lucknow"];
+  const cities = ["Harbour Line", "Central Line", "Western Line"];
 
   const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
